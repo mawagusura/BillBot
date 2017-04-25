@@ -8,6 +8,7 @@ using namespace std;
 int main()
 {
 
+    // coucou c'est PA
     Mat image;
     image = imread("data/image.jpg", IMREAD_COLOR);   // Read the file
 
