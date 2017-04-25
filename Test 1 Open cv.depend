@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1488972456 source:d:\docs\iut\cours\s2\projet billbot\test 1 open cv\main.cpp
+	<opencv2/core/core.hpp>
+	<opencv2/highgui/highgui.hpp>
+	<iostream>
+
