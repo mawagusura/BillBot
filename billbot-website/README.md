@@ -1,5 +1,4 @@
-==============================
-		billbot-website
+# billbot-website
 
 Website lié au projet Billbot
 ==============================
