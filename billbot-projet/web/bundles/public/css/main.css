@@ -1,0 +1,156 @@
+/* Initialisation pour tous les élements possibles des pages (valeur par défaut )*/
+body,html {
+	background-color: white;
+	font-family: Comic Sans MS, Comic Sans, cursive;
+	font-size: 15px;
+	height:100%;
+	width:100%;
+	padding:0;
+	margin:0;
+	background: #91bbff; /* Old browsers */
+	background: -moz-radial-gradient(center, ellipse cover, #91bbff 0%, #2989d8 56%, #207cca 100%); /* FF3.6-15 */
+	background: -webkit-radial-gradient(center, ellipse cover, #91bbff 0%,#2989d8 56%,#207cca 100%); /* Chrome10-25,Safari5.1-6 */
+	background: radial-gradient(ellipse at center, #91bbff 0%,#2989d8 56%,#207cca 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#91bbff', endColorstr='#207cca',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+}
+/* Bandeau */
+
+.bandeau{
+	border-bottom: solid 5px gray;
+	padding-right:10px;
+	padding-left:10px;
+	margin:0;
+	width: 100%;
+	height:100px;
+	background: white;
+	position:relative;
+}
+
+.bandeau .dropdown{
+	display:none;
+}
+.bandeau nav{
+	position:absolute;
+	bottom:0;
+	left:160px;
+	padding-left:5px;
+	padding-right:5px;
+}
+
+.bandeau nav a{
+	color: black;
+	font-weight: bold;
+	font-size: 15px;
+	text-decoration: none;
+	margin: 5px;
+	padding:6px;
+}
+
+.bandeau .active {
+	text-decoration: none;
+	background: white;
+	border-radius: 5px;
+}
+
+.bandeau nav a:hover, a:focus{
+	text-decoration: none;
+	background: white;
+	border-radius: 5px;
+	border: black 1px solid ;
+}
+
+.bandeau #univlogo{
+	float: right;
+	width:150px;
+	margin-top:10px;
+}
+.bandeau #blogo{
+	width:150px;
+	position: absolute;
+	top:20px;
+	float:left;
+}
+
+/* -----Content------ */
+
+.container{
+	margin-top:60px;
+	text-align: center;
+	color:black;
+}
+
+.container h1{
+	color:white;
+	font-size:2.5em;
+	font-weight:bold;
+	font-style: italic;
+	margin-bottom: 30px;
+	text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
+}
+
+.container p{
+	border: solid 1px white;
+	background-color: rgba(255, 255, 255, .9);
+	font-size:1.2em;
+	font-weight: 350;
+	font-family: Calibri;
+	border-radius: 20px;
+}
+
+.glyphicon.glyphicon-arrow-down{
+	font-size:50px;
+	text-shadow: 2px 2px 3px rgba(255,255,255,0.7);
+}
+
+@media screen and (min-width: 370px) and (max-width: 749px) {
+	.bandeau nav{
+		display: none;
+
+	}
+
+	.bandeau{
+		text-align: center;
+	}
+
+	.bandeau .dropdown{
+		display:block;
+		position:absolute;
+		bottom:0;
+		left:0;
+	}
+
+}
+
+@media screen and (max-width: 370px){
+
+	.bandeau{
+		text-align: center;
+	}
+
+	.bandeau nav{
+		display: none;
+	}
+
+	.bandeau .dropdown{
+		display:block;
+		position:absolute;
+		bottom:0;
+		left:0;
+	}
+
+	.bandeau #univlogo{
+		width:75px;
+		float:right;
+	}
+
+	.bandeau #blogo{
+		display:inline-block;
+		width:120px;
+		padding:0;
+		margin:0;
+	}
+
+	.container{
+		font-size:13px;
+	}
+}
