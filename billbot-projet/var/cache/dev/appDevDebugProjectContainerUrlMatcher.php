@@ -105,18 +105,23 @@ class appDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
 
         }
 
-        // billbot_billbot_index
+        // home
         if (rtrim($pathinfo, '/') === '') {
             if (substr($pathinfo, -1) !== '/') {
-                return $this->redirect($pathinfo.'/', 'billbot_billbot_index');
+                return $this->redirect($pathinfo.'/', 'home');
             }
 
-            return array (  '_controller' => 'BillbotBundle\\Controller\\BillbotController::indexAction',  '_route' => 'billbot_billbot_index',);
+            return array (  '_controller' => 'BillbotBundle\\Controller\\BillbotController::indexAction',  '_route' => 'home',);
         }
 
         // projet
         if ($pathinfo === '/projet') {
             return array (  '_controller' => 'BillbotBundle\\Controller\\BillbotController::projetAction',  '_route' => 'projet',);
+        }
+
+        // about
+        if ($pathinfo === '/about') {
+            return array (  '_controller' => 'BillbotBundle\\Controller\\BillbotController::aboutAction',  '_route' => 'about',);
         }
 
         // billbot_default_index

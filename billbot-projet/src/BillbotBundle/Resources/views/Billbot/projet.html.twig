@@ -1,16 +1,25 @@
 {% extends "BillbotBundle:Billbot:layout.html.twig" %}
 
-{% block title %}{{ parent() }} - Accueil {% endblock %}
+{% block title %}{{ parent() }} - Projet {% endblock %}
 
 {% block body %}
 
 {{ include("BillbotBundle:Billbot:bandeau.html.twig") }}
 
-<div class="container">
-	<div class="row justify-content-md-center">
-		<div class="col-12">
-			<h1> Interface Billbot </h1>
-		</div>
-	</div>
-</div>
+  <div class="container">
+  	<div class="row justify-content-md-center">
+  		<div class="col-12">
+  			<div class="well text-center">
+          <h1> Interface Billbot </h1>
+                {{ form_start(form, {'method': 'post', 'action': path('projet'), 'attr': {'class': 'form-inline '}}) }}
+                  {{ form_widget(form) }}
+                  <small id="fileHelp" class="form-text text-muted">Les formats autorisés sont png et jpg.</small>
+                  <br>
+                  <button type="submit" class="btn btn-success">Envoyer</button>
+                {{ form_end(form) }}
+        </div>
+  		</div>
+  	</div>
+  </div>
+
 {% endblock %}
