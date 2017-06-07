@@ -32,7 +32,20 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="include/classes/devise.h" />
+		<Unit filename="include/classes/piece.h" />
+		<Unit filename="include/classes/pieceType.h" />
+		<Unit filename="include/fonctionnement/detection_reconnaissance_suivi.h" />
+		<Unit filename="include/fonctionnement/modes_fonctionnement.h" />
+		<Unit filename="include/fonctionnement/systeme.h" />
+		<Unit filename="include/includesDeBase.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="src/classes/devise.cpp" />
+		<Unit filename="src/classes/piece.cpp" />
+		<Unit filename="src/classes/pieceType.cpp" />
+		<Unit filename="src/fonctionnement/detection_reconnaissance_suivi.cpp" />
+		<Unit filename="src/fonctionnement/modes_fonctionnement.cpp" />
+		<Unit filename="src/fonctionnement/systeme.cpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />

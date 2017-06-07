@@ -4,8 +4,91 @@
 	<opencv2/highgui/highgui.hpp>
 	<iostream>
 
-1493124328 source:c:\users\pppuo\documents\_etudes\orsay\cours\2projet tut\projets\testgit\billbot\main.cpp
-	<opencv2/core/core.hpp>
-	<opencv2/highgui/highgui.hpp>
-	<iostream>
+1496693161 source:c:\users\pppuo\documents\_etudes\orsay\cours\2projet tut\projets\testgit\billbot\main.cpp
+	"./include/includesDeBase.h"
+
+1494333277 source:c:\users\pppuo\documents\_etudes\orsay\cours\2projet tut\projets\testgit\billbot\src\piece.cpp
+	"../include/piece.h"
+	"../include/pieceType.h"
+
+1494373231 c:\users\pppuo\documents\_etudes\orsay\cours\2projet tut\projets\testgit\billbot\include\piece.h
+	"includesDeBase.h"
+
+1494320784 c:\users\pppuo\documents\_etudes\orsay\cours\2projet tut\projets\testgit\billbot\include\includesdebase.h
+	<opencv2/opencv.hpp>
+	<opencv/cv.h>
+	<opencv/highgui.h>
+	<opencv2/imgproc/imgproc.hpp>
+	<stdio.h>
+
+1494372528 c:\users\pppuo\documents\_etudes\orsay\cours\2projet tut\projets\testgit\billbot\include\piecetype.h
+	<vector>
+	"includesDeBase.h"
+	"piece.h"
+
+1494332999 source:c:\users\pppuo\documents\_etudes\orsay\cours\2projet tut\projets\testgit\billbot\src\piecetype.cpp
+	"../include/pieceType.h"
+	"../include/devise.h"
+
+1494372587 source:c:\users\pppuo\documents\_etudes\orsay\cours\2projet tut\projets\testgit\billbot\src\devise.cpp
+	"../include/devise.h"
+
+1494372542 c:\users\pppuo\documents\_etudes\orsay\cours\2projet tut\projets\testgit\billbot\include\devise.h
+	<map>
+	<vector>
+	"includesDeBase.h"
+	"pieceType.h"
+
+1494373217 source:c:\users\pppuo\documents\_etudes\orsay\cours\2projet tut\projets\testgit\billbot\src\systeme.cpp
+	"../include/systeme.h"
+
+1494373508 c:\users\pppuo\documents\_etudes\orsay\cours\2projet tut\projets\testgit\billbot\include\systeme.h
+	<vector>
+	"includesDeBase.h"
+	"devise.h"
+
+1496693088 source:c:\users\pppuo\documents\_etudes\orsay\cours\2projet tut\projets\testgit\billbot\src\classes\devise.cpp
+	"../../include/classes/devise.h"
+
+1496691702 c:\users\pppuo\documents\_etudes\orsay\cours\2projet tut\projets\testgit\billbot\include\classes\devise.h
+	<map>
+	<vector>
+	"../includesDeBase.h"
+	"pieceType.h"
+
+1496692871 c:\users\pppuo\documents\_etudes\orsay\cours\2projet tut\projets\testgit\billbot\include\classes\piecetype.h
+	<vector>
+	"../includesDeBase.h"
+	"piece.h"
+
+1496692065 c:\users\pppuo\documents\_etudes\orsay\cours\2projet tut\projets\testgit\billbot\include\classes\piece.h
+	"../includesDeBase.h"
+
+1496688642 source:c:\users\pppuo\documents\_etudes\orsay\cours\2projet tut\projets\testgit\billbot\src\classes\piece.cpp
+	"../../include/classes/piece.h"
+	"../../include/classes/pieceType.h"
+
+1496692866 source:c:\users\pppuo\documents\_etudes\orsay\cours\2projet tut\projets\testgit\billbot\src\classes\piecetype.cpp
+	"../../include/classes/pieceType.h"
+	"../../include/classes/devise.h"
+
+1494865561 source:c:\users\pppuo\documents\_etudes\orsay\cours\2projet tut\projets\testgit\billbot\src\fonctionnement\systeme.cpp
+	"../../include/fonctionnement/systeme.h"
+
+1494864694 c:\users\pppuo\documents\_etudes\orsay\cours\2projet tut\projets\testgit\billbot\include\fonctionnement\systeme.h
+	<vector>
+	"../includesDeBase.h"
+	"../classes/devise.h"
+
+1496693801 source:c:\users\pppuo\documents\_etudes\orsay\cours\2projet tut\projets\testgit\billbot\src\fonctionnement\detection_reconnaissance_suivi.cpp
+	"../../include/fonctionnement/detection_reconnaissance_suivi.h"
+
+1496693803 source:c:\users\pppuo\documents\_etudes\orsay\cours\2projet tut\projets\testgit\billbot\src\fonctionnement\modes_fonctionnement.cpp
+	"../../include/fonctionnement/modes_fonctionnement.h"
+
+1496694331 c:\users\pppuo\documents\_etudes\orsay\cours\2projet tut\projets\testgit\billbot\include\fonctionnement\detection_reconnaissance_suivi.h
+	"../includesDeBase.h"
+
+1496694335 c:\users\pppuo\documents\_etudes\orsay\cours\2projet tut\projets\testgit\billbot\include\fonctionnement\modes_fonctionnement.h
+	"../includesDeBase.h"
 
