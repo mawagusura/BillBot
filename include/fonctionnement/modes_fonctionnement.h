@@ -3,25 +3,12 @@
 
 #include "../includesDeBase.h"
 
-class Partie2
-{
-    /*
-        METHODES DE LA PARTIE 2 :
+int include(vector<PieceType>nosPieces, Piece unePiece);
+vector< pair<PieceType,int> > modeDevise(string devise);
+vector< pair<PieceType,int> > modeValeur(string devise, float val);
+vector< pair<PieceType,int> > modeSomme(string devise, float somme);
+vector< pair<PieceType,int> > mainFonctionnement(int mode, string devise, float val);
 
-        => rajouter des ' #include "classe.h" ' avant le debut de la classe
-        pour utiliser les classes definies
-
-        => appel des methodes dans le main
-
-        => methodes static
-    */
-
-    // ecrire les declarations des methodes ici (definitions dans le .cpp correspondant)
-    // rappel les methodes sont static dans cette classe
-
-
-
-};
 
 
 #endif // DET_MOD_FONC_H
