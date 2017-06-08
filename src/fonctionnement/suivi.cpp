@@ -287,11 +287,13 @@ int suivi::random(int mini,int maxi){
 }
 
 
-void suivi::suiviPiece(std::vector<Piece> pieces,Mat imgSuivante){
-       for (Piece &piece : pieces) // access by reference to avoid copying
-        {
-            Point pos = suivi::rechAmelioree(imgSuivante,piece);
-            piece.setCoord(pos);
-        }
+void suivi::suiviPiece(std::vector<Piece> pieces,std::vector<Mat> images){
+       for (Mat &img : images){
+       	for (Piece &piece : pieces) // access by reference to avoid copying
+	        {
+	            Point pos = suivi::rechAmelioree(img,piece);
+	            piece.setCoord(pos);
+	        }
+       }
 }
 
