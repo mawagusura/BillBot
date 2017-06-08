@@ -2,6 +2,9 @@
 
 using namespace cv;
 
+std::vector<Devise> Systeme::listeDevises;
+std::vector<Piece> Systeme::listePieces;
+std::vector<Mat> Systeme::listeImages;
 
 /*
     GETTERS
@@ -9,15 +12,15 @@ using namespace cv;
 
 std::vector<Devise> Systeme::getListeDevises(){
 
-    return Systeme::listeDevises;
+    return listeDevises;
 }
 
 std::vector<Piece> Systeme::getListePieces(){
-    return Systeme::listePieces;
+    return listePieces;
 }
 
 std::vector<Mat> Systeme::getListeImages(){
-    return Systeme::listeImages;
+    return listeImages;
 }
 
 
@@ -26,11 +29,11 @@ std::vector<Mat> Systeme::getListeImages(){
 */
 
 void Systeme::setListeDevises(std::vector<Devise> newListeDevises){
-    Systeme::listeDevises = newListeDevises;
+    listeDevises = newListeDevises;
 }
 
 void Systeme::addDevise(Devise devise){
-    Systeme::listeDevises.push_back(devise);
+    listeDevises.push_back(devise);
 }
 
 /*void Systeme::removeDevise(Devise devise){
@@ -38,11 +41,11 @@ void Systeme::addDevise(Devise devise){
 }*/
 
 void Systeme::setListePieces(std::vector<Piece> newListePieces){
-    Systeme::listePieces = newListePieces;
+    listePieces = newListePieces;
 }
 
 void Systeme::addPiece(Piece piece){
-    Systeme::listePieces.push_back(piece);
+    listePieces.push_back(piece);
 }
 
 /*void Systeme::removePiece(Piece piece){
@@ -50,11 +53,11 @@ void Systeme::addPiece(Piece piece){
 }*/
 
 void Systeme::setListeImages(std::vector<Mat> newListeImages){
-    Systeme::listeImages = newListeImages;
+    listeImages = newListeImages;
 }
 
 void Systeme::addImage(Mat image){
-    Systeme::listeImages.push_back(image);
+    listeImages.push_back(image);
 }
 
 /*void Systeme::removeImage(Mat image){
@@ -62,5 +65,10 @@ void Systeme::addImage(Mat image){
 }*/
 
 
+int main(){
 
+    Piece pc();
+    cout << " hello ";
 
+    return 0;
+}

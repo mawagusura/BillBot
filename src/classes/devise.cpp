@@ -10,11 +10,11 @@ Devise::Devise(){
     nom = "";
 }
 
-Devise::Devise(String newNom){
+Devise::Devise(string newNom){
     nom = newNom;
 }
 
-Devise::Devise(String newNom, std::map<Devise, float> newConversions, std::vector<PieceType> newListePieceType){
+Devise::Devise(string newNom, std::map<Devise, float> newConversions, std::vector<PieceType> newListePieceType){
     nom = newNom;
     conversions = newConversions;
     listePieceType = newListePieceType;
@@ -24,7 +24,7 @@ Devise::Devise(String newNom, std::map<Devise, float> newConversions, std::vecto
 /*
     GETTERS
 */
-String Devise::getNom(){
+string Devise::getNom(){
     return nom;
 }
 
@@ -40,7 +40,7 @@ std::vector<PieceType> Devise::getListePieceType(){
 /*
     SETTERS
 */
-void Devise::setNom(String newNom){
+void Devise::setNom(string newNom){
     nom = newNom;
 }
 

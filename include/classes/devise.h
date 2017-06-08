@@ -5,6 +5,7 @@
 #include <vector>
 #include "../includesDeBase.h"
 #include "pieceType.h"
+#include <string>
 
 /*
 struct DeviseCompare
@@ -22,7 +23,7 @@ class Devise
     /*
         ATTRIBUTS
     */
-    String nom;
+    string nom;
     std::map<Devise, float> conversions;
     std::vector<PieceType> listePieceType;
 
@@ -33,20 +34,20 @@ class Devise
         CONSTRUCTEURS
     */
     Devise();
-    Devise(String newNom);
-    Devise(String newNom, std::map<Devise, float> newConversions, std::vector<PieceType> newListePieceType);
+    Devise(string newNom);
+    Devise(string newNom, std::map<Devise, float> newConversions, std::vector<PieceType> newListePieceType);
 
     /*
         GETTERS
     */
-    String getNom();
+    string getNom();
     std::map<Devise, float> getConversions();
     std::vector<PieceType> getListePieceType();
 
     /*
         SETTERS
     */
-    void setNom(String newNom);
+    void setNom(string newNom);
     void addConversion(Devise devise, float tauxConv);
     void removeConversion(Devise devise, float tauxConv);
     void setListePieceType(std::vector<PieceType> newListePieceType);
