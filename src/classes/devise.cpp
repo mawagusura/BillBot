@@ -1,7 +1,8 @@
 #include "../../include/classes/devise.h"
 
-using namespace cv;
 
+using namespace cv;
+using namespace std;
 
 /*
     CONSTRUCTEURS

@@ -2,10 +2,12 @@
 #define PIECE_TYPE_H
 
 #include <vector>
-#include "../includesDeBase.h"
 #include "piece.h"
+#include "devise.h"
+#include "../includesDeBase.h"
 
 class Devise;
+class Piece;
 
 class PieceType
 {
@@ -15,7 +17,7 @@ class PieceType
     */
     Devise *devise;
     float valeur;
-    Mat imgPieceType;
+    cv::Mat imgPieceType;
     std::vector<Piece> listePiece;
 
     protected:
@@ -25,8 +27,8 @@ class PieceType
         CONSTRUCTEURS
     */
     PieceType();
-    PieceType(Devise* newDevise, float newValeur, Mat newImgPieceType);
-    PieceType(Devise* newDevise, float newValeur, Mat newImgPieceType, std::vector<Piece> newListePiece);
+    PieceType(Devise* newDevise, float newValeur, cv::Mat newImgPieceType);
+    PieceType(Devise* newDevise, float newValeur, cv::Mat newImgPieceType, std::vector<Piece> newListePiece);
 
     /*
         GETTERS
@@ -34,7 +36,7 @@ class PieceType
     Devise* getDevise();
     float getValeur();
     std::vector<Piece> getListePiece();
-    Mat getImgPieceType();
+    cv::Mat getImgPieceType();
 
     /*
         SETTERS
@@ -44,7 +46,7 @@ class PieceType
     void setListePiece(std::vector<Piece> newListePiece);
     void addPiece(Piece piece);
     //void removePiece(Piece piece);
-    void setImgPieceType(Mat newImgPieceType);
+    void setImgPieceType(cv::Mat newImgPieceType);
 
     bool operator <(const PieceType& rhs) const
     {

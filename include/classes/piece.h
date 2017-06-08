@@ -1,6 +1,7 @@
 #ifndef PIECE_H
 #define PIECE_H
 
+#include "pieceType.h"
 #include "../includesDeBase.h"
 
 class PieceType;
@@ -11,9 +12,9 @@ class Piece
     /*
         ATTRIBUTS
     */
-    Point coord;
+    cv::Point coord;
     int rayon;
-    Mat imgPiece;
+    cv::Mat imgPiece;
     PieceType *type;
 
     protected:
@@ -24,22 +25,22 @@ class Piece
         CONSTRUCTEURS
     */
     Piece();
-    Piece(Point newCoord, int newRayon,Mat newImgPiece, PieceType *newType);
+    Piece(cv::Point newCoord, int newRayon,cv::Mat newImgPiece, PieceType *newType);
 
     /*
         GETTERS
     */
-    Point getCoord() const ;
+    cv::Point getCoord() const ;
     int getRayon() const ;
-    Mat getImgPiece();
+    cv::Mat getImgPiece();
     PieceType* getType();
 
     /*
         SETTERS
     */
-    void setCoord(Point newCoord);
+    void setCoord(cv::Point newCoord);
     void setRayon(int newRayon);
-    void setImgPiece(Mat image);
+    void setImgPiece(cv::Mat image);
     void setType(PieceType* type);
 
     bool operator <(const Piece& rhs) const
