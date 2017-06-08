@@ -65,10 +65,4 @@ void Systeme::addImage(Mat image){
 }*/
 
 
-int main(){
 
-    Piece pc();
-    cout << " hello ";
-
-    return 0;
-}
