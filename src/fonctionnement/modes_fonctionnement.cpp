@@ -2,7 +2,7 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
-#include "fonctionnement.h"
+#include "../../include/fonctionnement/systeme.h"
 
 using namespace std;
 
@@ -15,13 +15,13 @@ int include(vector<PieceType>nosPieces, Piece unePiece)
     bool included=false;
     while (i<nosPieces.size() && !included)
     {
-        if (nosPieces[i] == unePiece.getType())
+        if (nosPieces[i] == *(unePiece.getType()))
         {
             included=true;
         }
         else i++;
     }
-    return nosPieces[i]=unePiece?i:-1;
+    return nosPieces[i] == *(unePiece.getType())?i:-1;
 }
 
 //--------------------------------------------------------------------------------------------
@@ -33,7 +33,7 @@ vector< pair<PieceType,int> > modeDevise(string devise)
     vector< pair<PieceType,int> > piecesChoisies;
 
     while(i < Systeme::listeDevises.size() && !found) {
-        found = Systeme::listeDevises[i].getNom == devise;
+        found = Systeme::listeDevises[i].getNom() == devise;
         i++;
     }
 
@@ -97,7 +97,7 @@ vector< pair<PieceType,int> > modeValeur(string devise, float val)
     vector< pair<PieceType,int> > piecesChoisies;
 
     while(i < Systeme::listeDevises.size() && !found) {
-        found = Systeme::listeDevises[i].getNom == devise;
+        found = Systeme::listeDevises[i].getNom() == devise;
         i++;
     }
 
@@ -108,12 +108,12 @@ vector< pair<PieceType,int> > modeValeur(string devise, float val)
         found = 0;
 
         while(i < listeTypes.size() && !found) {
-            found = listeTypes[i].getValeur() == val);
+            found = (listeTypes[i].getValeur() == val);
             i++;
         }
 
         if(found) {
-            piecesChoisies.push_back(make_pair(listeTypes[i], listeTypes[i].getListePieces().size()));
+            piecesChoisies.push_back(make_pair(listeTypes[i], listeTypes[i].getListePiece().size()));
         }
     }
 
@@ -137,9 +137,9 @@ vector< pair<PieceType,int> > modeSomme(string devise, float somme)
         {
             if (listePieces[i].first.getValeur() > listePieces[i+1].first.getValeur())
             {
-                PieceType temp = listePieces[i];
-                listePieces[i] = listePieces[i+1];
-                listePieces[i+1] = temp;
+                PieceType temp = listePieces[i].first;
+                listePieces[i].first = listePieces[i+1].first;
+                listePieces[i+1].first = temp;
 
                 inversion=true;
             }
@@ -148,7 +148,7 @@ vector< pair<PieceType,int> > modeSomme(string devise, float somme)
         longueur--;
     } while(inversion);
 
-    int taille = quantites.size();
+    int taille = listePieces.size();
 
     PieceType pieces[taille];
     int quantites[taille];
@@ -161,7 +161,7 @@ vector< pair<PieceType,int> > modeSomme(string devise, float somme)
     int original[taille] ;
     int result[taille];
     float sommeOriginale=somme;
-    int i=0;
+    i=0;
 
     for (int j=0;j<taille;j++)
     {
@@ -173,10 +173,10 @@ vector< pair<PieceType,int> > modeSomme(string devise, float somme)
     {
         if (quantites[i]>0)
         {
-            if (somme-pieces[i]>=0)
+            if (somme-pieces[i].getValeur() >= 0)
             {
                 quantites[i]--;
-                somme-=pieces[i];
+                somme-=pieces[i].getValeur();
             }
             else i++;
         }
@@ -187,7 +187,7 @@ vector< pair<PieceType,int> > modeSomme(string devise, float somme)
     for (i=0;i<taille;i++)
     {
         result[i]=original[i]-quantites[i];
-        total+=result[i]*pieces[i];
+        total+=result[i]*pieces[i].getValeur();
     }
 
     vector< pair < PieceType, int > > piecesChoisies;
@@ -220,6 +220,9 @@ vector< pair<PieceType,int> > mainFonctionnement(int mode, string devise, float 
         break;
         case 3 : return(modeSomme(devise, val));
         break;
-        default : cout<<"erreur"<<endl;
+        default :
+            cout<<"erreur"<<endl;
+            vector< pair<PieceType,int> > t;
+            return t;
     }
 }

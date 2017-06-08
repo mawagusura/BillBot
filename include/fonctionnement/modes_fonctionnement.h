@@ -2,6 +2,10 @@
 #define DET_MOD_FONC_H
 
 #include "../includesDeBase.h"
+#include "../classes/pieceType.h"
+#include "../classes/piece.h"
+
+using namespace std;
 
 int include(vector<PieceType>nosPieces, Piece unePiece);
 vector< pair<PieceType,int> > modeDevise(string devise);
