@@ -14,18 +14,19 @@ class Systeme
     classe de stockage des objets utilisés
     */
     private:
-    /*
-        ATTRIBUTS
-    */
 
     protected:
 
     public:
-        static std::vector<Devise> listeDevises;
-        static std::vector<Piece> listePieces;
-        static std::vector<cv::Mat> listeImages;
 
     /*
+    ATTRIBUTS
+    */
+    static std::vector<Devise> listeDevises;
+    static std::vector<Piece> listePieces;
+    static std::vector<cv::Mat> listeImages;
+    /*
+
         GETTERS
     */
     static std::vector<Devise> getListeDevises();

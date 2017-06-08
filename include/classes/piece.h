@@ -25,6 +25,7 @@ class Piece
         CONSTRUCTEURS
     */
     Piece();
+    Piece(cv::Point newCoord, int newRayon,cv::Mat newImgPiece);
     Piece(cv::Point newCoord, int newRayon,cv::Mat newImgPiece, PieceType *newType);
 
     /*
@@ -54,6 +55,14 @@ class Piece
         return coord.x == rhs.coord.x
         && coord.y < rhs.coord.y;
     }
+
+    /*
+        Methode
+    */
+    cv::Mat roiPiece(cv::Mat);
+
 };
+
+
 
 #endif // PIECE_H

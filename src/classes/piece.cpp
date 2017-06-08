@@ -14,10 +14,17 @@ Piece::Piece(){
     type = NULL;
 }
 
+Piece::Piece(Point newCoord, int newRayon,Mat newImgPiece){
+    coord = newCoord;
+    rayon = newRayon;
+    imgPiece = roiPiece(newImgPiece);
+    type = NULL;
+}
+
 Piece::Piece(Point newCoord, int newRayon,Mat newImgPiece, PieceType *newType){
     coord = newCoord;
     rayon = newRayon;
-    imgPiece = newImgPiece;
+    imgPiece = roiPiece(newImgPiece);
     type = newType;
 }
 
@@ -58,4 +65,28 @@ void Piece::setImgPiece(Mat newImgPiece){
 
 void Piece::setType(PieceType* newType){
     type = newType;
+}
+
+/*
+Methode
+*/
+
+// Retourne une image de la pièce
+Mat Piece::roiPiece(Mat image){
+    //Rectangle contenant les données du point de coordonnées:
+    Rect r(coord.x-rayon, coord.y-rayon, rayon*2,rayon*2);
+
+    // Obtenir la ROI de l'image grise:
+    Mat roi(image, r);
+
+    // créer un masque noir de même taille:
+    Mat mask(roi.size(), roi.type(), Scalar::all(0));
+
+    // créer un cercle blanc dans le mask
+    circle(mask, Point(rayon,rayon), rayon, Scalar::all(255), -1);
+
+    // combine roi & mask:
+    Mat roiImage = roi & mask;
+
+    return roiImage;
 }
