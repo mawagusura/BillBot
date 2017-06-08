@@ -1,9 +1,10 @@
 #include "../../include/fonctionnement/suivi.h"
+#include "../../include/fonctionnement/systeme.h"
 
 using namespace std;
 using namespace cv;
 
-/**** VERSION 1 : Vérifie la similitude entre deux tableau de pixel de même taille ****/
+/**** VERSION 1 : VÃ©rifie la similitude entre deux tableau de pixel de mÃªme taille ****/
 
 int suivi::checkSimilitude(Piece pc1,Piece pc2){
 	int seuil=150;  //Marge d'erreur
@@ -24,7 +25,7 @@ int suivi::checkSimilitude(Piece pc1,Piece pc2){
 }
 
 
-/**** VERSION 2 : Vérifie la similitude entre deux tableaux de pixels de même taille ****/
+/**** VERSION 2 : VÃ©rifie la similitude entre deux tableaux de pixels de mÃªme taille ****/
 int suivi::getMSE(Piece pc1,Piece pc2){
     int diffPix,total=0;
     cv::Scalar color1,color2;
@@ -42,17 +43,17 @@ int suivi::getMSE(Piece pc1,Piece pc2){
 	return (total/(cols*ligne));
 }
 
-/**** Fonction qui recherche la piece de l'image 1 sur l'image 2 et retourne les coordonnées du centre si la piece est trouvée ***/
+/**** Fonction qui recherche la piece de l'image 1 sur l'image 2 et retourne les coordonnÃ©es du centre si la piece est trouvÃ©e ***/
 /**** VERSION 1 ****/
 Piece suivi::recherchePiece(Mat img2, Piece piece){
 
 	bool trouve = false ;
 
-    //On se place de manière à ne pas déborder de l'image (position centrale de la piece)
+    //On se place de maniÃ¨re Ã  ne pas dÃ©border de l'image (position centrale de la piece)
     Point pos = Point(piece.getRayon(),piece.getRayon());
 
-    // On crée une nouvelle pièce à partir de la position x+1 de la précédente pièce
-    // on suppose que la pièce bouge vers la droite
+    // On crÃ©e une nouvelle piÃ¨ce Ã  partir de la position x+1 de la prÃ©cÃ©dente piÃ¨ce
+    // on suppose que la piÃ¨ce bouge vers la droite
     Piece pc2;
 
     int i = 1;
@@ -100,20 +101,20 @@ Point suivi::rechAmelioree(Mat img, Piece piece){
     for(int i=0;i<nbessai;i++){
         totalProba=0,sommeX=0,sommeY=0;
         // Faire la somme des YiPi et XiPi pour avoir le nouveau point
-        //On se place de manière à ne pas déborder de l'image (position centrale de la piece)
+        //On se place de maniÃ¨re Ã  ne pas dÃ©border de l'image (position centrale de la piece)
         Point pos = Point(piece.getRayon(),piece.getRayon());
-        //Création des points au hasard
+        //CrÃ©ation des points au hasard
         for(int i=0;i<nbPoint;i++){
             XY[i].x=random(piece.getRayon(),limiteImg);
             XY[i].y=random(piece.getRayon(),limiteImg2);
             pc2 = Piece(XY[i],piece.getRayon(),img,piece.getType());
-            MSE = getMSE(piece,pc2); // Moyenne pondéré
+            MSE = getMSE(piece,pc2); // Moyenne pondÃ©rÃ©
             P[i]= exp((-MSE)/(2*pow(sigma,2)));
             totalProba+=P[i];
         }
 
-        //Après avoir trouvé le total des proba, diviser chaque proba
-        //par ce total afin d'avoir une probabilité sur 1
+        //AprÃ¨s avoir trouvÃ© le total des proba, diviser chaque proba
+        //par ce total afin d'avoir une probabilitÃ© sur 1
             for(int i=0;i<nbPoint;i++){
                 // Marque les points pris au hasard
                 P[i]=P[i]/totalProba;
@@ -123,14 +124,14 @@ Point suivi::rechAmelioree(Mat img, Piece piece){
             }
             PFIN[i]=Point(sommeX,sommeY);
 
-            //Marque le point le plus probable du centre estimé
+            //Marque le point le plus probable du centre estimÃ©
             drawMarker(img, Point(sommeX,sommeY), Scalar(0),MARKER_CROSS,20,4,8);
         }
         totalProba=0;sommeX=0; sommeY=0;
 
         for(int i=0;i<nbessai;i++){
             pc2 = Piece(PFIN[i],piece.getRayon(),img,piece.getType());
-            MSE = getMSE(piece,pc2); // Moyenne pondéré
+            MSE = getMSE(piece,pc2); // Moyenne pondÃ©rÃ©
             ProbaFin[i]= exp((-MSE)/(2*pow(sigma,2)));
             totalProba+=ProbaFin[i];
         }
@@ -144,18 +145,16 @@ Point suivi::rechAmelioree(Mat img, Piece piece){
         }
 
         //imshow("image orig",img);
-        //Marque le point le plus probable du centre estimé
+        //Marque le point le plus probable du centre estimÃ©
         drawMarker(img, Point(sommeX,sommeY), Scalar(255),MARKER_CROSS,20,4,8);
         return Point(sommeX,sommeY);
 }
 /*****************************************************/
 
 
-/****** Fonction utilise la methode du filtre particulaire pour retrouver la pièce   *******/
+/****** Fonction utilise la methode du filtre particulaire pour retrouver la piÃ¨ce   *******/
 /**** VERSION 3 ****/
-Point suivi::filtreParticule(Mat img,int nblancement,Piece piece){
-    Point XY[35];
-    float P[35];
+Point suivi::filtreParticule(Mat img,int nblancement,Piece piece,Point XY[],float P[]){
     srand(time(NULL));
 	int nbPoint=34,MSE,sigma=10;
     int limiteImg= img.cols - (int) piece.getRayon();
@@ -164,23 +163,23 @@ Point suivi::filtreParticule(Mat img,int nblancement,Piece piece){
 	bool trouve = false ;
 	Piece pc2;
 	Piece pc3;
-    //On se place de manière à ne pas déborder de l'image (position centrale de la piece)
+    //On se place de maniÃ¨re Ã  ne pas dÃ©border de l'image (position centrale de la piece)
     Point pos = Point(piece.getRayon(),piece.getRayon());
 
-    //Pour le premier lancement recherche de la pièce a l'aide de points tirées aléatoirement
+    //Pour le premier lancement recherche de la piÃ¨ce a l'aide de points tirÃ©es alÃ©atoirement
     if(nblancement==0){
-        //Création des points au hasard
+        //CrÃ©ation des points au hasard
         for(int i=0;i<nbPoint;i++){
             XY[i].x=random(piece.getRayon(),limiteImg);
             XY[i].y=random(piece.getRayon(),limiteImg2);
             pc2 = Piece(XY[i],piece.getRayon(),img);
-            MSE = getMSE(piece,pc2); // Moyenne pondéré
+            MSE = getMSE(piece,pc2); // Moyenne pondÃ©rÃ©
             P[i]= exp((-MSE)/(2*pow(sigma,2)));
             totalProba+=P[i];
         }
 
-        //Après avoir trouvé le total des proba, diviser chaque proba
-        //par ce total afin d'avoir une probabilité sur 1
+        //AprÃ¨s avoir trouvÃ© le total des proba, diviser chaque proba
+        //par ce total afin d'avoir une probabilitÃ© sur 1
         for(int i=0;i<nbPoint;i++){
             // Marque les points pris au hasard
             drawMarker(img, Point(XY[i]), Scalar(0),MARKER_CROSS,20,1,8);
@@ -190,7 +189,7 @@ Point suivi::filtreParticule(Mat img,int nblancement,Piece piece){
             sommeX+= XY[i].x*P[i];
             sommeY+= XY[i].y*P[i];
         }
-        //Marque le point le plus probable du centre estimé
+        //Marque le point le plus probable du centre estimÃ©
         drawMarker(img, Point(sommeX,sommeY), Scalar(255),MARKER_CROSS,20,4,8);
 
         return Point(sommeX,sommeY);
@@ -201,14 +200,14 @@ Point suivi::filtreParticule(Mat img,int nblancement,Piece piece){
 
         Point XY2[35];
         Point XY3[35];
-        int nbPoint2 = 30; //nombbre de points choisis à partir des premiers
+        int nbPoint2 = 30; //nombbre de points choisis Ã  partir des premiers
         float P2[nbPoint2];
         vector<float> poids(nbPoint);
 
-        //normal_distribution : permet d'obtenir un point éloigné d'une certaine valeur d'un point choisi
+        //normal_distribution : permet d'obtenir un point Ã©loignÃ© d'une certaine valeur d'un point choisi
         normal_distribution<double> distribution(100.0,50.0);
 
-        //création d'une valeur aléatoire (seed)
+        //crÃ©ation d'une valeur alÃ©atoire (seed)
         typedef chrono::high_resolution_clock myclock;
         myclock::time_point beginning = myclock::now();
 
@@ -254,7 +253,7 @@ Point suivi::filtreParticule(Mat img,int nblancement,Piece piece){
                 XY3[i].y = XY2[i].y + dist2;
 
             pc3 = Piece(Point(XY3[i].x,XY3[i].y),piece.getRayon(),img);
-            MSE = getMSE(piece,pc3); // Moyenne pondérée
+            MSE = getMSE(piece,pc3); // Moyenne pondÃ©rÃ©e
             P2[i]= exp((-MSE)/(2*pow(sigma,2)));
             totalProba2+=P2[i];
         }
@@ -266,7 +265,7 @@ Point suivi::filtreParticule(Mat img,int nblancement,Piece piece){
             drawMarker(img, Point(XY3[i].x, XY3[i].y), Scalar(0),MARKER_CROSS,20,1,8);
             P2[i]=P2[i]/totalProba2;
 
-            //Somme XIYIPI calcul du centre estimé
+            //Somme XIYIPI calcul du centre estimÃ©
             sommeX+= XY3[i].x*P2[i];
             sommeY+= XY3[i].y*P2[i];
 
@@ -274,7 +273,7 @@ Point suivi::filtreParticule(Mat img,int nblancement,Piece piece){
             XY[i] = XY3[i] ;
         }
 
-        //Marque le point le plus probable du centre estimé
+        //Marque le point le plus probable du centre estimÃ©
         drawMarker(img, Point(sommeX,sommeY), Scalar(255),MARKER_CROSS,20,4,8);
 
         return Point(sommeX,sommeY);
@@ -287,13 +286,34 @@ int suivi::random(int mini,int maxi){
 }
 
 
-void suivi::suiviPiece(std::vector<Piece> pieces,std::vector<Mat> images){
-       for (Mat &img : images){
-       	for (Piece &piece : pieces) // access by reference to avoid copying
+void suivi::suiviPiece(){
+    if(!Systeme::listePieces.empty()){
+       for (Mat &img : Systeme::listeImages){
+            int i=1;
+            for (Piece &piece : Systeme::listePieces) // access by reference to avoid copying
+                    {
+                        Point pos = suivi::rechAmelioree(img,piece);
+                        piece.setCoord(pos);
+                        std::cout<<"La piece numÃ©ro "<<i<<" a bougÃ© a la position: "<< pos<<std::endl;
+                        i++;
+                    }
+
+        }
+    }else std::cout<<"Pas de piÃ¨ce Ã  suivre"<<endl;
+}
+
+void suivi::suiviPiece2(){
+       int nbfois=0;
+       for (Mat &img : Systeme::listeImages){
+       	for (Piece &piece : Systeme::listePieces) // access by reference to avoid copying
 	        {
-	            Point pos = suivi::rechAmelioree(img,piece);
+                Point XY[35];
+                float P[35];
+	            Point pos = suivi::filtreParticule(img,nbfois,piece,XY,P);
 	            piece.setCoord(pos);
+	            std::cout<<"La piece a bougÃ© a la position: "<< pos<<std::endl;
 	        }
+        nbfois++;
        }
 }
 

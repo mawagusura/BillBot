@@ -16,8 +16,9 @@ class suivi
         static int getMSE(Piece,Piece);
         static Piece recherchePiece(cv::Mat,Piece);
         static cv::Point rechAmelioree(cv::Mat,Piece);
-        static cv::Point filtreParticule(cv::Mat,int,Piece);
-        static void suiviPiece(std::vector<Piece>,cv::Mat);
+        static cv::Point filtreParticule(cv::Mat,int,Piece,cv::Point[],float[]);
+        static void suiviPiece();
+        static void suiviPiece2();
         static int random(int,int);
 
     protected:
