@@ -17,13 +17,14 @@ class Systeme
     /*
         ATTRIBUTS
     */
-    static std::vector<Devise> listeDevises;
-    static std::vector<Piece> listePieces;
-    static std::vector<cv::Mat> listeImages;
 
     protected:
 
     public:
+        static std::vector<Devise> listeDevises;
+        static std::vector<Piece> listePieces;
+        static std::vector<cv::Mat> listeImages;
+
     /*
         GETTERS
     */

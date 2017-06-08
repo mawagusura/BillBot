@@ -1,12 +1,8 @@
-#include "../../include/fonctionnement/detection_reconnaissance_suivi.h"
-
-using namespace cv;
-
 /*
 DEFINITIONS DES METHODES :
 */
 #include "../../include/fonctionnement/detection_reconnaissance_suivi.h"
-
+#include "../../include/fonctionnement/systeme.h"
 using namespace cv;
 
 /*
@@ -27,7 +23,7 @@ int detection()
     //_____________________________________________Chargement de l'image_________________________________
     //
 
-    Mat imageAnalyser=Systeme::listeImages[0];
+    Mat imageAnalyser = Systeme::getListeImages()[0];
 
     //
     //______________________________________________1ère étape: Traitement de l'image__________________________________________
@@ -406,9 +402,9 @@ int detection()
     }while(densM>seuilDensite);
 
     for(int i=0; i<pieceTrouveesMax; i++){
-		Point centre = new Point(posPieces[0][i],posPieces[1][i]);
-		new int rayon = posPieces[2][i];
-		Systeme::listePieces.push_back(Piece(centre,rayon,imageAnalyser);
+		Point centre =Point(posPieces[0][i],posPieces[1][i]);
+		int rayon = posPieces[2][i];
+		Systeme::listePieces.push_back(Piece(centre,rayon,imageAnalyser));
     }
 
     /////////////////////////////////////////////////////////
