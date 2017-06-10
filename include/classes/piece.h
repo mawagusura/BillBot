@@ -60,6 +60,7 @@ class Piece
         Methode
     */
     cv::Mat roiPiece(cv::Mat);
+    void updateImgPiece(cv::Mat);
 
 };
 

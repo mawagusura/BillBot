@@ -15,10 +15,10 @@ class suivi
         static int checkSimilitude(Piece,Piece);
         static int getMSE(Piece,Piece);
         static Piece recherchePiece(cv::Mat,Piece);
-        static cv::Point rechAmelioree(cv::Mat,Piece);
-        static cv::Point filtreParticule(cv::Mat,int,Piece,cv::Point[],float[]);
-        static void suiviPiece();
-        static void suiviPiece2();
+        static cv::Point semiFiltreParticulaire(cv::Mat,Piece);
+        static cv::Point filtreParticule(cv::Mat,int,Piece);
+        static void suiviSemiFiltreParticulaire();
+        static void suiviFiltreParticulaire();
         static int random(int,int);
 
     protected:

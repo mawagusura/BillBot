@@ -45,7 +45,7 @@ class Systeme
     static void setListeImages(std::vector<cv::Mat> newListeImages);
     static void addImage(cv::Mat image);
     //static void removeImage(Mat image);
-
+    static void affichagePiece();
 
 };
 

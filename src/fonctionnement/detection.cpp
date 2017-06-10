@@ -252,7 +252,6 @@ void Detection::detection()
     /////////////////////////////////////////////////////
     //DETECTION DU CENTRE DES PIECES ET DE LEURS RAYONS//
     /////////////////////////////////////////////////////
-    std::cout<<"hoooo";
     const int nbPieceMaxTrouvable = 100; // Nombre de pièces max trouvables
     const int rayonMax = 30; // on va aller du rayon 50 au rayon 50+30*5
 

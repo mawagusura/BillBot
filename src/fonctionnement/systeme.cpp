@@ -52,6 +52,7 @@ void Systeme::addPiece(Piece piece){
 
 }*/
 
+
 void Systeme::setListeImages(std::vector<Mat> newListeImages){
     listeImages = newListeImages;
 }
@@ -59,10 +60,20 @@ void Systeme::setListeImages(std::vector<Mat> newListeImages){
 void Systeme::addImage(Mat image){
     listeImages.push_back(image);
 }
-
 /*void Systeme::removeImage(Mat image){
 
 }*/
+
+void Systeme::affichagePiece(){
+    int i=1;
+    for(Piece &piece: listePieces){
+        char str[20];
+        sprintf(str,"Piece  %u",i);
+        imshow(str, piece.getImgPiece());
+        i++;
+    }
+}
+
 
 
 

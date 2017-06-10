@@ -67,6 +67,11 @@ void Piece::setType(PieceType* newType){
     type = newType;
 }
 
+void Piece::updateImgPiece(Mat img){
+    imgPiece=roiPiece(img);
+}
+
+
 /*
 Methode
 */

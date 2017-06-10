@@ -13,7 +13,7 @@ class DNA
         DNA(int total, vector<int> &_order);
         ~DNA();
 
-        static const float murate = 0.3;
+        static constexpr float murate = 0.3;
         static vector<Piece> pieces;
         static int nbPieces;
         float dist;
