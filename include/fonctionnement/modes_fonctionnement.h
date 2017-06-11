@@ -11,7 +11,7 @@ int include(vector<PieceType>nosPieces, Piece unePiece);
 vector< pair<PieceType,int> > modeDevise(string devise);
 vector< pair<PieceType,int> > modeValeur(string devise, float val);
 vector< pair<PieceType,int> > modeSomme(string devise, float somme);
-vector< pair<PieceType,int> > mainFonctionnement(int mode, string devise, float val);
+vector< pair<PieceType,int> > mainFonctionnement(int mode, string devise = "Euro", float val = 0.0);
 
 
 

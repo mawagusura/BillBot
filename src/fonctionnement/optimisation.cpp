@@ -1,4 +1,3 @@
-#include <stdlib.h>
 #include <math.h>
 #include <vector>
 #include <time.h>
@@ -6,18 +5,11 @@
 #include "../../include/classes/piece.h"
 #include "../../include/fonctionnement/optimisation.h"
 #include <algorithm>
-#include <iostream>
-#include <opencv2/core.hpp>
-#include <opencv2/highgui.hpp>
-#include <opencv2/cvconfig.h>
-#include <opencv2/imgproc/imgproc.hpp>
-#include <opencv2/imgcodecs.hpp>
 
 using namespace std;
 
 const int screenHeight = 600;
 const int screenWidth = 800;
-const int nbPieces = 10;
 
 using namespace cv;
 using namespace std;
@@ -63,47 +55,47 @@ int DNA::nbPieces;
 
 int executeOpti(vector< pair<PieceType, int> > piecesEligibles)
 {
+    vector<Piece> piecesTemp;
     vector<Piece> pieces;
-    int lenpieces = piecesEligibles.size();
 
     //Point reference
     Point pref = Point(0,0);
 
-    for(int i=0; i<lenpieces; i++){
-        PieceType mapiece =piecesEligibles[i].first;
-        int nb = piecesEligibles[i].second;
+    for(int i = 0; i < piecesEligibles.size(); i++) {
+        if(piecesEligibles[i].second != 0) {
+            vector<Piece> piecesTemp = piecesEligibles[i].first.getListePiece();
+            vector<int> distances;
 
-        // recup listePieces du PieceType
-        int lenp = mapiece.getListePiece().size();
-        vector<Piece> listepiecetype = mapiece.getListePiece();
-
-        // liste pieces triées
-        vector<Piece> mespieces;
-        vector<int> distances;
-        distances.push_back(getDist(pref,listepiecetype[0].getCoord()));
-        mespieces.push_back(listepiecetype[0]);
-        //loop
-        for(int j=1; j<lenp;j++){
-            int dist = getDist(pref, listepiecetype[j].getCoord());
-            int z=0;
-            int lendist = distances.size();
-            bool insere = false;
-            while(z<lendist && !insere){
-                if(dist<distances[z]){
-                    distances.insert(distances.begin()+z, dist);
-                    mespieces.insert(mespieces.begin()+z, listepiecetype[j]);
-                    insere=true;
-                }
-                z++;
+            for(int j = 0; j < piecesTemp.size(); j++) {
+                distances.push_back(getDist(pref, piecesTemp[j].getCoord()));
             }
-        }
 
-        for(int a=0;a<nb;a++){
-            pieces.push_back(mespieces[a]);
+            bool inversion;
+            int len = distances.size();
+            do {
+                inversion = false;
+
+                for(int j = 0; j < len -1; j++) {
+                    if(distances[j] > distances[j+1]) {
+                        int dt = distances[j];
+                        Piece pt = piecesTemp[j];
+
+                        distances[j] = distances[j+1];
+                        distances[j+1] = dt;
+
+                        piecesTemp[j] = piecesTemp[j+1];
+                        piecesTemp[j+1] = pt;
+
+                        inversion = true;
+                    }
+                    len--;
+                }
+            } while(inversion);
+
+            for(int j = 0; j < piecesEligibles[i].second; j++)
+                pieces.push_back(piecesTemp[j]);
         }
     }
-
-
 
     float recordDistance = numeric_limits<float>::infinity();
     //meilleure population
@@ -116,6 +108,7 @@ int executeOpti(vector< pair<PieceType, int> > piecesEligibles)
     int membTotal = 0;
     int membLimit = 40000;
 
+    int nbPieces = pieces.size();
     DNA::nbPieces = nbPieces;
 
     srand(time(NULL));
@@ -152,7 +145,6 @@ int executeOpti(vector< pair<PieceType, int> > piecesEligibles)
                     if(d < recordDistance) {
                         recordDistance = d;
                         bestEver = population[i];
-                        cout << "longueur du meilleur chemin : " << d << endl;
                     }
 
                     if(d < minDist) {
@@ -216,29 +208,43 @@ int executeOpti(vector< pair<PieceType, int> > piecesEligibles)
                     cout << "Porbleme !" << endl;
     }
 
-    vector<Point> ppoint;
-    for(int i=0;i<nbPieces;i++){
+    vector<Point> points;
+    vector<float> labels;
+
+    for(int i = 0; i < nbPieces; i++){
         Point p = pieces[bestEver.order[i]].getCoord();
-        ppoint.push_back(p);
+        points.push_back(p);
+
+        PieceType pt = *(pieces[bestEver.order[i]].getType());
+        labels.push_back(pt.getValeur());
     }
 
-
-    namedWindow("test", CV_WINDOW_AUTOSIZE);
+    namedWindow("Optimisation", CV_WINDOW_AUTOSIZE);
 
     Mat img = Mat(screenHeight,screenWidth,CV_8UC3,Scalar(255,255,255));
 
-    for(int i=0;i<nbPieces-1;i++){
-        circle(img,ppoint[i],7,Scalar(0,0,0),-1);
-        line(img,ppoint[i],ppoint[i+1],Scalar(0,0,0),2);
-    }
-    circle(img,ppoint[nbPieces-1],7,Scalar(0,0,0),-1);
-    line(img,ppoint[nbPieces-1],ppoint[0],Scalar(0,0,0),2);
-    imshow("test",img);
-    waitKey(0);
-    destroyWindow("test");
-    return 0;
+    for(int i = 0; i < nbPieces-1; i++){
+        circle(img, points[i], 7, Scalar(0,0,0),-1);
+        line(img, points[i], points[i+1], Scalar(0,0,0), 2);
 
-    //piece[bestEver.order[i].x],piece[bestEver.order[i].y]
+        ostringstream oss;
+        oss << labels[i];
+
+        putText(img, oss.str(), points[i], FONT_HERSHEY_SIMPLEX, 1, Scalar(0, 0, 0), 2);
+    }
+
+    circle(img, points[nbPieces-1], 7, Scalar(0,0,0), -1);
+    line(img, points[nbPieces-1], points[0], Scalar(0,0,0), 2);
+
+    ostringstream oss;
+    oss << labels[nbPieces-1];
+
+    putText(img, oss.str(), points[nbPieces-1], FONT_HERSHEY_SIMPLEX, 1, Scalar(0, 0, 0), 2);
+
+    imshow("Optimisation",img);
+    waitKey(0);
+    destroyWindow("Optimisation");
+    return 0;
 }
 
 DNA::DNA() {}

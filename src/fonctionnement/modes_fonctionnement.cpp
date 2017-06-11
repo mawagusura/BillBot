@@ -36,6 +36,7 @@ vector< pair<PieceType,int> > modeDevise(string devise)
         found = Systeme::listeDevises[i].getNom() == devise;
         i++;
     }
+    i--;
 
     if(found) {
         std::vector<PieceType> listePieces = Systeme::listeDevises[i].getListePieceType();
@@ -54,38 +55,10 @@ vector< pair<PieceType,int> > modeDevise(string devise)
         }
     }
 
-    else {
-        //ERROR
-    }
+    else
+        throw string("Devise non presente sur le tapis.");
 
     return piecesChoisies;
-    /*
-    //tableau des types de pièces présents sur le tapis répondant aux critères choisis
-    std::vector<PieceType> pieces;
-    //tableau des quantités de pièces correspondant à chaque type du tableau "pieces"
-    std::vector<int> quantite;
-
-    //parcourir la liste de pièces de système et ajouter au tableau pieces les pièces de Devise devise
-    for (int i=0;i<Systeme::listePieces.size();i++)
-    {
-        if (Systeme::listePieces[i].getType().getDevise().getNom()==devise)
-        {
-            int pos = include(pieces, listesPieces[i]);
-            if (pos==-1)
-            {
-                pieces.push_back(listePieces[i].getType());
-                quantite.push_back(1);
-            }
-            else quantite[pos]++;
-        }
-    }
-
-    vector< pair<PieceType,int> > piecesChoisies;
-
-    for(int i = 0; i < pieces.size(); i++) {
-        piecesChoisies.push_back(make_pair(pieces[i], quantite[i]));
-    }
-    return piecesChoisies;*/
 }
 
 //--------------------------------------------------------------------------------------------
@@ -100,22 +73,30 @@ vector< pair<PieceType,int> > modeValeur(string devise, float val)
         found = Systeme::listeDevises[i].getNom() == devise;
         i++;
     }
+    i--;
 
     if(found) {
         std::vector<PieceType> listeTypes = Systeme::listeDevises[i].getListePieceType();
 
         i = 0;
-        found = 0;
+        found = false;
 
         while(i < listeTypes.size() && !found) {
             found = (listeTypes[i].getValeur() == val);
             i++;
         }
+        i--;
 
         if(found) {
             piecesChoisies.push_back(make_pair(listeTypes[i], listeTypes[i].getListePiece().size()));
         }
+
+        else
+            throw string("Valeur non presente sur le tapis.");
     }
+
+    else
+        throw string("Devise non presente sur le tapis.");
 
     return piecesChoisies;
 }
@@ -126,25 +107,24 @@ vector< pair<PieceType,int> > modeSomme(string devise, float somme)
 {
     vector< pair<PieceType,int> > listePieces = modeDevise(devise);
 
-    int i;
     bool inversion;
     int longueur = listePieces.size();
 
     do {
         inversion = false;
 
-        for(i=0;i<longueur-1;i++)
+        for(int i = 0; i < longueur-1; i++)
         {
-            if (listePieces[i].first.getValeur() > listePieces[i+1].first.getValeur())
+            if (listePieces[i].first.getValeur() < listePieces[i+1].first.getValeur())
             {
-                PieceType temp = listePieces[i].first;
-                listePieces[i].first = listePieces[i+1].first;
-                listePieces[i+1].first = temp;
+                pair<PieceType, int> temp = listePieces[i];
 
-                inversion=true;
+                listePieces[i] = listePieces[i+1];
+                listePieces[i+1] = temp;
+
+                inversion = true;
             }
         }
-
         longueur--;
     } while(inversion);
 
@@ -160,18 +140,18 @@ vector< pair<PieceType,int> > modeSomme(string devise, float somme)
 
     int original[taille] ;
     int result[taille];
-    float sommeOriginale=somme;
-    i=0;
+    float sommeOriginale = somme;
+    int i = 0;
 
-    for (int j=0;j<taille;j++)
+    for (int j = 0; j < taille; j++)
     {
-        original[j]=quantites[j];
-        result[j]=0;
+        original[j] = quantites[j];
+        result[j] = 0;
     }
 
-    while (i<taille && somme>0)
+    while (i < taille && somme > 0)
     {
-        if (quantites[i]>0)
+        if (quantites[i] > 0)
         {
             if (somme-pieces[i].getValeur() >= 0)
             {
@@ -184,23 +164,20 @@ vector< pair<PieceType,int> > modeSomme(string devise, float somme)
     }
 
     int total=0;
-    for (i=0;i<taille;i++)
+    for (i = 0; i < taille; i++)
     {
-        result[i]=original[i]-quantites[i];
-        total+=result[i]*pieces[i].getValeur();
+        result[i] = original[i]-quantites[i];
+        total += result[i]*pieces[i].getValeur();
     }
 
     vector< pair < PieceType, int > > piecesChoisies;
 
     if (total!=sommeOriginale)
-    {
-        cout<<"erreur"<<endl;
-    }
+        throw string("Somme impossible a atteindre avec les pieces presentes.");
 
-    else for(i=0;i<taille;i++)
-    {
-        piecesChoisies.push_back(make_pair(pieces[i], result[i]));
-    }
+    else
+        for(int i = 0; i < taille; i++)
+            piecesChoisies.push_back(make_pair(pieces[i], result[i]));
 
     return piecesChoisies;
 }

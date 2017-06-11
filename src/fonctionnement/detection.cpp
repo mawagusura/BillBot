@@ -1,4 +1,4 @@
-#include "detection.h"
+#include "../../include/fonctionnement/detection.h"
 #include "../../include/fonctionnement/detection_reconnaissance_suivi.h"
 #include "../../include/fonctionnement/systeme.h"
 #include <math.h>
